@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, useState} from "react";
+import {ChangeEvent, FC, useEffect, useState} from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import {Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@mui/material";
@@ -11,9 +11,9 @@ const Filters:FC = () => {
     const [title, setTitle] = useState<any>('');
     const dispatch = useAppDispatch();
 
-    const onSearchHandler = (e: any) => {
+    useEffect(() => {
         dispatch(getAllMovies( { title } ));
-    }
+    }, [title]);
 
     return (
         <Card sx={{ my: 3 }}>
@@ -22,7 +22,7 @@ const Filters:FC = () => {
                     Movies
                 </Typography>
                 <Grid container spacing={2}>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                         <Box component='div' className={classes.Search_Box}>
                             <TextField
                                 label="Search"
@@ -32,7 +32,6 @@ const Filters:FC = () => {
                                 onChange={e => setTitle(e.target.value)}
                                 className={classes.Search_Input}
                             />
-                            <Button variant='outlined' className={classes.Btn} onClick={e => onSearchHandler(e)}>Search</Button>
                         </Box>
                     </Grid>
                     <Grid item xs={2}>
