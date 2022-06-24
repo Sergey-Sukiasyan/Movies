@@ -6,7 +6,7 @@ class MoviesService {
     async getAllMovies(filters: IFilters) {
         let filters_obj: any = {};
         if(filters.hasOwnProperty('title')) {
-            filters_obj.title = { $regex: filters.title }
+            filters_obj.title = { $regex: '.*' + filters.title + '.*', $options: 'i' }
         }
 
         const movies = await Movies.find(filters_obj);
